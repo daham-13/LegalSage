@@ -1,0 +1,30 @@
+version: "3.8"
+
+services:
+  db:
+    image: postgres:15
+    container_name: legal-postgres
+    restart: always
+    environment:
+      POSTGRES_USER: legal_admin
+      POSTGRES_PASSWORD: daham123
+      POSTGRES_DB: LegalSage
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5433:5432"
+
+  backend:
+    build: ./Backend
+    container_name: legal-backend
+    depends_on:
+      - db
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./Backend:/app
+    environment:
+      - PYTHONUNBUFFERED=1
+
+volumes:
+  postgres_data:

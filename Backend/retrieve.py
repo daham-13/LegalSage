@@ -5,7 +5,7 @@ from models import LegalDocument
 from sqlalchemy.orm import sessionmaker
 
 # Database connection
-DATABASE_URL = "postgresql+psycopg2://legal_admin:daham123@localhost/LegalSage"
+DATABASE_URL = "postgresql+psycopg2://legal_admin:daham123@db:5432/LegalSage"
 engine = create_engine(DATABASE_URL)
 Session = sessionmaker(bind=engine)
 
@@ -35,3 +35,17 @@ def retrieve_relevant_documents(query, top_k=3):
     
     session.close()
     return top_results
+
+def retrieve_all_documents():
+    session = Session()
+    try:
+        documents = session.query(LegalDocument).all()
+        return [
+            {
+                "id": doc.id,
+                "title": doc.title,
+            }
+            for doc in documents
+        ]
+    finally:
+        session.close()

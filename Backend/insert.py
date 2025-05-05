@@ -10,7 +10,7 @@ from sentence_transformers import SentenceTransformer
 model = SentenceTransformer('all-MiniLM-L6-v2')
 
 # Set up connection
-DATABASE_URL = "postgresql+psycopg2://legal_admin:daham123@localhost/LegalSage"
+DATABASE_URL = "postgresql+psycopg2://legal_admin:daham123@db:5432/LegalSage"
 engine = create_engine(DATABASE_URL)
 Session = sessionmaker(bind=engine)
 session = Session()
@@ -37,5 +37,24 @@ def insert_document(file_path):
         session.rollback()
         print(f"❌ Failed to insert '{file_path}': {e}")
 
+    finally:
+        session.close()
+
+def delete_document_by_title(title: str):
+    session = Session()
+    try:
+        doc = session.query(LegalDocument).filter_by(title=title).first()
+        if doc:
+            session.delete(doc)
+            session.commit()
+            print(f"✅ Deleted document: {title}")
+            return True
+        else:
+            print(f"⚠️ Document not found: {title}")
+            return False
+    except Exception as e:
+        session.rollback()
+        print(f"❌ Error deleting document: {e}")
+        return False
     finally:
         session.close()
