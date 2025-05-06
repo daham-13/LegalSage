@@ -1,0 +1,14 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environment directories
+.env/
+venv/
+env/
+ENV/
+.venv/
+
+# Secret keys
+key.txt

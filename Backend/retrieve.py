@@ -5,7 +5,7 @@ from models import LegalDocument
 from sqlalchemy.orm import sessionmaker
 
 # Database connection
-DATABASE_URL = "postgresql+psycopg2://legal_admin:daham123@db:5432/LegalSage"
+DATABASE_URL = ""
 engine = create_engine(DATABASE_URL)
 Session = sessionmaker(bind=engine)
 

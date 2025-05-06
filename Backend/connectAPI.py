@@ -1,6 +1,6 @@
 import requests
 
-API_KEY = "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"
+API_KEY = ""
 
 def genarate_response(context, user_question):
 

@@ -3,7 +3,7 @@ from sqlalchemy.orm import declarative_base
 from sqlalchemy.orm import sessionmaker
 import datetime
 
-engine = create_engine("postgresql+psycopg2://legal_admin:daham123@db:5432/LegalSage")
+engine = create_engine("")
 
 # Base class for declaring models
 Base = declarative_base()
